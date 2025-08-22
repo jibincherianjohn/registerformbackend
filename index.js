@@ -30,7 +30,7 @@ app.post("/register", (req, res) => {
   db.run(
     `INSERT INTO registrations 
       (fullName, email, phone, college, year, department, submissionDate) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     `,
     [fullName, email, phone, college, year, department, submissionDate],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
