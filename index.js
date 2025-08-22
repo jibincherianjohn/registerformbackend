@@ -27,18 +27,18 @@ db.run(`CREATE TABLE IF NOT EXISTS registrations (
 app.post("/register", (req, res) => {
   const { fullName, email, phone, college, year, department, submissionDate } = req.body;
 
-  db.run(
-    `INSERT INTO registrations 
-      (fullName, email, phone, college, year, department, submissionDate) 
-     `,
-    [fullName, email, phone, college, year, department, submissionDate],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
+db.run(
+  `INSERT INTO registrations 
+    (fullName, email, phone, college, year, department, submissionDate) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  [fullName, email, phone, college, year, department, submissionDate],
+  function (err) {
+    if (err) return res.status(500).json({ error: err.message });
 
-      // ✅ return success JSON
-      res.json({ success: true, message: "Registration saved successfully!", id: this.lastID });
-    }
-  );
+    res.json({ success: true, message: "Registration saved successfully!", id: this.lastID });
+  }
+);
+
 });
 
 app.get("/export", (req, res) => {
